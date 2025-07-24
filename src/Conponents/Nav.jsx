@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link, Links } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Nav = () => {
 
-    const user = true;
+    const {user, logOut} = useContext(AuthContext)
+
+    const links = [
+        <li><Link to={'/'}>Home</Link></li>,
+    ]
+
+    const handleLogOut = () =>{
+        logOut()
+    }
 
     return (
-        <div className="navbar bg-base-100 shadow-sm">
+        <div className="navbar bg-base-100 shadow-sm items-center">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -14,37 +24,19 @@ const Nav = () => {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li><a>Item 1</a></li>
-                        <li>
-                            <a>Parent</a>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Item 3</a></li>
+                        {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a className="btn btn-ghost text-xl">CROWDCUBE</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><a>Item 1</a></li>
-                    <li>
-                        <details>
-                            <summary>Parent</summary>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li><a>Item 3</a></li>
+                    {links}
                 </ul>
             </div>
 
             {
-                user === true ?
+                user ?
                     <div className="navbar-end flex gap-2">
                         <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -53,7 +45,9 @@ const Nav = () => {
                                         alt="Tailwind CSS Navbar component"
                                         src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
                                 </div>
+                                
                             </div>
+                            <h1>{user?.displayName}</h1>
                             <ul
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
@@ -64,13 +58,14 @@ const Nav = () => {
                                     </a>
                                 </li>
                                 <li><a>Settings</a></li>
-                                <li><a>Logout</a></li>
+                                <li><a onClick={handleLogOut}>Logout</a></li>
                             </ul>
                         </div>
                     </div>
                     :
-                    <div className="navbar-end">
-                        <a className="btn">Sign In</a>
+                    <div className="navbar-end gap-3">
+                        <div className='btn'><Link to={'/auth/register'}>Register</Link></div>
+                        <div className='btn'><Link to={'/auth/login'}>Login</Link></div>
                     </div>
             }
         </div>
