@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 
 const Login = () => {
-    const { signInUser, signInWithGoogle, setUser, googleLogin } = useContext(AuthContext);
+    const { signInUser, setUser, googleLogin } = useContext(AuthContext);
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
@@ -19,7 +19,7 @@ const Login = () => {
         signInUser(email, password)
             .then(result => {
                 Swal.fire("Login Successful", " ", "success");
-                navigate(location?.state || "/");
+                navigate(location?.state ? location.state : '/')
                 const user = result.user;
                 setUser(user);
                 console.log(result)
@@ -34,7 +34,7 @@ const Login = () => {
         googleLogin()
             .then(result => {
                 toast.success("Google login successful!");
-                navigate('/');
+                navigate(location?.state ? location.state : '/')
                 console.log(result)
             })
             .catch(err => {

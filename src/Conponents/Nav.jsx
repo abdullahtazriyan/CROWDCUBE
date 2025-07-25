@@ -8,6 +8,7 @@ const Nav = () => {
 
     const links = [
         <li><Link to={'/'}>Home</Link></li>,
+        <li><Link to={'/add-campaign'}>Add Campaign</Link></li>
     ]
 
     const handleLogOut = () =>{

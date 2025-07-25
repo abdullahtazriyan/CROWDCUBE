@@ -31,7 +31,7 @@ const Register = () => {
                 const user = result.user;
                 setUser({ ...user, displayName: name, photoURL: photo });
                 toast.success("Registration successful!");
-                navigate('/');
+                navigate(location?.state ? location.state : '/')
             })
             .catch(err => {
                 setError(err.message);
@@ -44,7 +44,7 @@ const Register = () => {
         googleLogin()
             .then(result => {
                 toast.success("Google login successful!");
-                navigate('/');
+                navigate(location?.state ? location.state : '/')
                 console.log(result)
             })
             .catch(err => {

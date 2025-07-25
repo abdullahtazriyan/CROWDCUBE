@@ -4,11 +4,19 @@ import MainLayout from '../Layout/MainLayout';
 import Register from '../Pages/Register';
 import Login from '../Pages/Login';
 import AuthLayout from '../Layout/AuthLayout';
+import AddCampaign from '../Conponents/AddCampaign';
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <MainLayout></MainLayout>,
+        children: [
+            {
+                path: 'add-campaign',
+                element: <PrivateRoute><AddCampaign></AddCampaign></PrivateRoute>
+            }
+        ]
     },
     {
         path: '/auth',
