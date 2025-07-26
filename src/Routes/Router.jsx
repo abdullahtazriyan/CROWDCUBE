@@ -6,6 +6,8 @@ import Login from '../Pages/Login';
 import AuthLayout from '../Layout/AuthLayout';
 import AddCampaign from '../Conponents/AddCampaign';
 import PrivateRoute from './PrivateRoute';
+import DetailsCampaign from '../Conponents/DetailsCampaign';
+import PagesLayout from '../Layout/PagesLayout';
 
 const router = createBrowserRouter([
     {
@@ -15,6 +17,22 @@ const router = createBrowserRouter([
             {
                 path: 'add-campaign',
                 element: <PrivateRoute><AddCampaign></AddCampaign></PrivateRoute>
+            },
+            {
+                path: 'campaign/:id',
+                element: <PrivateRoute><DetailsCampaign></DetailsCampaign></PrivateRoute>,
+                loader: ({params}) => fetch(`http://localhost:1000/campaign/${params.id}`)
+            }
+        ]
+    },
+    {
+        path: '/pages',
+        element: <PagesLayout></PagesLayout>,
+        children: [
+            {
+                path: 'campaign/:id',
+                element: <PrivateRoute><DetailsCampaign></DetailsCampaign></PrivateRoute>,
+                loader: ({params}) => fetch(`http://localhost:1000/campaign/${params.id}`)
             }
         ]
     },

@@ -1,6 +1,8 @@
-const CampaignCard = ({ campaign }) => {
-    const { title, description, goalAmount, image, createdBy } = campaign;
+import { Link } from "react-router-dom";
 
+const CampaignCard = ({ campaign }) => {
+    const { title, description, goalAmount, image, createdBy, _id } = campaign;
+    console.log(_id)
     return (
         <div className="rounded-2xl shadow-md  bg-white p-4 max-w-sm hover:shadow-lg transition-all mt-12">
             <img
@@ -16,7 +18,7 @@ const CampaignCard = ({ campaign }) => {
             )}
             <div className=" flex gap-4">
                 <button className="mt-4 w-full border py-2 rounded-lg  transition">
-                    Details 
+                     <Link to={`pages/campaign/${_id}`}>Details</Link>
                 </button>
                 <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
                     Donate Now
