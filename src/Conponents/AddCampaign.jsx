@@ -4,41 +4,37 @@ const AddCampaign = () => {
     const handleSubmit = e => {
         e.preventDefault();
 
+        const form = e.target;
+        const newCampaign = {
+            title: form.title.value,
+            description: form.description.value,
+            goalAmount: form.goalAmount.value,
+            image: form.image.value,
+        };
+
+        fetch('http://localhost:1000/campaigns', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newCampaign)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+
+        // form.reset()
     };
     return (
-        <div className="max-w-xl mx-auto mb-8 mt-10 p-6 bg-white rounded-xl shadow-lg">
-            <h2 className="text-2xl font-bold mb-5 text-center">Add New Campaign</h2>
+        <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow rounded">
+            <h2 className="text-2xl font-bold mb-4">Add New Campaign</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Campaign Title"
-                    className="input input-bordered w-full"
-                    required
-                />
-                <textarea
-                    name="description"
-                    placeholder="Short Description"
-                    className="textarea textarea-bordered w-full"
-                    required
-                />
-                <input
-                    type="number"
-                    name="goalAmount"
-                    placeholder="Goal Amount (৳)"
-                    className="input input-bordered w-full"
-                    required
-                />
-                <input
-                    type="text"
-                    name="image"
-                    placeholder="Image URL"
-                    className="input input-bordered w-full"
-                    required
-                />
-                <button type="submit" className="btn btn-primary w-full">
-                    Add Campaign
-                </button>
+                <input name="title" type="text" placeholder="Campaign Title" className="input input-bordered w-full" required />
+                <input name="goalAmount" type="number" placeholder="Goal Amount" className="input input-bordered w-full" required />
+                <input name="image" type="text" placeholder="Image URL" className="input input-bordered w-full" required />
+                <textarea name="description" placeholder="Campaign Description" className="textarea textarea-bordered w-full" required></textarea>
+                <button type="submit" className="btn btn-primary w-full">Submit</button>
             </form>
         </div>
     );
